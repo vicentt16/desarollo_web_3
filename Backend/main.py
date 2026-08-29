@@ -3,21 +3,21 @@ from pymongo import MongoClient
 
 app = FastAPI()
 
-# Mongo DB connection
-mongo_client = MongoClient("mongodb://admin_user:web3@localhost:27017/")
+# Mongo DB connection setup
+mongo_client = MongoClient("mongodb://admin_user:web3@mongo_container:27017/")
 database = mongo_client["web3"]
-productos_collection = database["productos"]
+productos = database["productos"]
 
 @app.get("/")
-def DBStart():
-    return{"status": "started"}
+def default_route():
+  return {"message": "Uvicorn server is running!"}
 
 @app.get("/health")
 def health_check():
-    return{"status": "ok"}
-
+    return {"status": "ok"}
 
 @app.get("/productos")
 def get_productos():
-    return list(productos_collection.find({}, {"_id": 0}))
+    productos_list = list(productos.find({}))  # Exclude the _id field from the results
+    return {productos_list}
 

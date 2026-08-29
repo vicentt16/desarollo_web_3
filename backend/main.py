@@ -5,7 +5,7 @@ app = FastAPI()
 
 # Mongo DB connection setup
 mongo_client = MongoClient("mongodb://admin_user:web3@mongo_container:27017/")
-database = mongo_client["desarrollo_web_3"]
+database = mongo_client["web3"]
 productos = database["productos"]
 
 @app.get("/")
@@ -18,6 +18,6 @@ def health_check():
 
 @app.get("/productos")
 def get_productos():
-    productos_list = productos.find({}, {"_id": 0})  # Exclude the _id field from the results
-    return {"productos": productos_list}
+    productos_list = list(productos.find({}))  # Exclude the _id field from the results
+    return {productos_list}
 
