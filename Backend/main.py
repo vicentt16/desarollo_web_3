@@ -19,5 +19,5 @@ def health_check():
 @app.get("/productos")
 def get_productos():
     productos_list = list(productos.find({}))  # Exclude the _id field from the results
-    return {productos_list}
+    return {"productos": productos_list}
 
