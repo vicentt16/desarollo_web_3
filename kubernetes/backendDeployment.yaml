@@ -28,6 +28,6 @@ spec:
       containers:
       - name: backend-fast
         image: backend_productos:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
